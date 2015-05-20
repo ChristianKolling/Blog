@@ -6,22 +6,17 @@ use Core\Controller\ActionController;
 use Zend\View\Model\ViewModel;
 use Admin\Form\Post as Form;
 use Admin\Validator\Post as Validacao;
-use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator;
-use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
-use Zend\Paginator\Paginator;
+use Core\Form\Busca as Busca;
 
 class PostController extends ActionController
 {
     public function indexAction() 
     {
+        $busca = new Busca();
         $result = $this->getService('Admin\Service\Post')->fetchAll();
-//        $paginator = new Paginator(
-//                new DoctrinePaginator(new ORMPaginator($result))
-//        );
-//        $paginator->setCurrentPageNumber($this->params()->fromRoute('page'))
-//        ->setItemCountPerPage(10);
         return new ViewModel(array(
-            'dados' => $result
+            'dados' => $result,
+            'busca' => $busca,
         ));
     }
 
