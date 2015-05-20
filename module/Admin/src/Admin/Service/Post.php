@@ -31,4 +31,15 @@ class Post extends Service
             throw new \Exception('Erro ao Salvar, tente novamente mais tarde.');
         }
     }
+    
+    public function deletePost($id)
+    {
+        $post = $this->getObjectManager()->find('Admin\Model\Post', $id);
+        $this->getObjectManager()->remove($post);
+        try {
+            $this->getObjectManager()->flush();
+        } catch (\Exception $ex) {
+            throw new Exception('O registro não pode ser excluido, por favor tente mais tarde.');
+        }
+    }
 }

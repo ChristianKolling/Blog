@@ -37,6 +37,11 @@ return array(
                             'defaults' => array(
                             ),
                         ),
+                        'child_routes' => array( 
+                            'wildcard' => array(
+                                'type' => 'Wildcard'
+                            ),
+                        ),
                     ),
                 ),
             ),

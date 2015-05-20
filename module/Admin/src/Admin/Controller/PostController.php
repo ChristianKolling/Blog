@@ -44,12 +44,10 @@ class PostController extends ActionController
     
     public function deleteAction()
     {
-        $id = (int) $this->params()->fromRoute('id',0);
+        $id = (int) $this->params()->fromRoute('id', 0);
         if($id > 0){
-            $post = $this->getObjectManager()->find('Admin\Model\Post',$id);
-            $this->getObjectManager()->remove($post);
             try {
-                $this->getObjectManager()->flush();
+                $this->getService('Admin\Service\Post')->deletePost($id);
                 $this->flashMessenger()->addSuccessMessage('Publicação deletada com sucesso.');
             } catch (\Exception $ex) {
                 $this->flashMessenger()->addErrorMessage('A publicação não pode ser deletada, por favor tente mais tarde.');
