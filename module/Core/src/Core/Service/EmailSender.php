@@ -42,7 +42,7 @@ class EmailSender extends Service
             "connection_class" => "login",
             "connection_config" => array(
                 "username" => "christian.si@unochapeco.edu.br ",
-                "password" => "Mi8wzan6d",
+                "password" => "",
                 'ssl' => 'ssl')
         ));
         
