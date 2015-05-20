@@ -19,17 +19,19 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach($dados as $value){ ?>
-                    <tr>
-                        <td><?php echo $value['titulo']; ?></td>
-                        <td><?php echo $value['mini_text']; ?></td>
-                        <td><?php echo $value['post_completo']; ?></td>
-                        <td><?php echo $value['data_cadastro']->format('d-m-Y'); ?></td>
-<!--                        <td>2011/04/25</td>
-                        <td>$320,800</td>-->
-                        <td><p data-placement="top" data-toggle="tooltip" title="Editar este Item"><button class="btn btn-primary btn-xs" data-title="Editar" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
-                        <td><p data-placement="top" data-toggle="tooltip" title="Deletar este Item"><button class="btn btn-danger btn-xs" data-title="Deletar" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
-                    </tr>
+                    <?php foreach ($dados as $value) { ?>
+                        <tr>
+                            <td><?php echo $value['titulo']; ?></td>
+                            <td><?php echo $value['mini_text']; ?></td>
+                            <td><?php echo $value['post_completo']; ?></td>
+                            <td><?php echo $value['data_cadastro']->format('d-m-Y'); ?></td>
+                            <td>
+                                <a href="/admin/post/save/id/<?php echo $value['id']; ?>">Editar</a>
+                            </td>
+                            <td>
+                                <a href="/admin/post/delete/id/<?php echo $value['id']; ?>">Excluir</a>
+                            </td>
+                        </tr>
                     <?php } ?>
                 </tbody>
             </table>
@@ -73,7 +75,7 @@
         </div>
     </div>
 </div>
-
+<!--
 
 
 <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
@@ -87,9 +89,9 @@
                 <div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign"></span> Deseja realmente apagar este registro?</div>
             </div>
             <div class="modal-footer ">
-                <a type="button" class="btn btn-success" href="<?php echo '/admin/post/delete';?>"><span class="glyphicon glyphicon-ok-sign"></span> Sim </a>
+                <a type="button" class="btn btn-success" href="/admin/post/delete/id/<?php echo $value['id']; ?>"><span class="glyphicon glyphicon-ok-sign"></span> Sim </a>
                 <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Não</button>
             </div>
         </div>
     </div>
-</div>
+</div>-->
