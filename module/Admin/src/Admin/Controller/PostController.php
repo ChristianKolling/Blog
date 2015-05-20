@@ -13,7 +13,14 @@ class PostController extends ActionController
     public function indexAction() 
     {
         $busca = new Busca();
-        $result = $this->getService('Admin\Service\Post')->fetchAll();
+        if ($this->getRequest()->isPost()) {
+            $search = $this->getRequest()->getPost();
+            $busca->setData($search);
+            if ($busca->isValid()) {
+                $dados = $busca->getData();
+            }
+        }
+        $result = $this->getService('Admin\Service\Post')->fetchAll($dados);
         return new ViewModel(array(
             'dados' => $result,
             'busca' => $busca,
@@ -38,6 +45,10 @@ class PostController extends ActionController
                 }
                 $this->redirect()->toUrl('/admin/post/index');
             }
+        }
+        $id = (int) $this->params()->fromRoute('id',0);
+        if($id > 0){
+            $form = $this->getService('Admin\Service\Post')->populate($id,$form);
         }
         return new ViewModel(array(
             'form' => $form

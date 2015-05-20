@@ -9,7 +9,7 @@ class Post extends Form
 
     public function __construct() 
     {
-        parent::__construct('novo-post');
+        parent::__construct('novo');
         $this->setAttribute('method', 'post');
         $this->setAttribute('action', '');
 

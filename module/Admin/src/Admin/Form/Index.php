@@ -17,14 +17,28 @@ class Index extends Form
         ));
         
         $this->add(array(
-            'name' => 'nome',
+            'name' => 'usuario',
             'type' => 'text',
             'options' => array(
-                'label' => 'Nome de Usuário'
+                'label' => 'E-mail '
             ),
-            'attributes' => 0,array(
-                'id' => 'nome',
-                'class' => 'nome',
+            'attributes' => array(
+                'class' => 'form-control',
+                'id' => 'usuario',
+                'placeholder' => 'seunome@dominio.com.br',
+            ),
+        ));
+        
+        $this->add(array(
+            'name' => 'senha',
+            'type' => 'password',
+            'options' => array(
+                'label' => 'Senha '
+            ),
+            'attributes' => array(
+                'class' => 'form-control',
+                'id' => 'senha',
+                'placeholder' => '**********'
             ),
         ));
         
@@ -32,7 +46,8 @@ class Index extends Form
             'name' => 'entrar',
             'type' => 'Submit',
             'attributes' => array(
-                'value' => 'Entrar',
+                'class' => 'btn btn-lg btn-success btn-block',
+                'value' => 'Login >>',
             ),
         ));
     }
