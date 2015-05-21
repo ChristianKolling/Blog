@@ -6,14 +6,13 @@ return array(
             'home' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
-                    'route' => '/',
+                    'route' => '/admin',
                     'defaults' => array(
                         'controller' => 'Admin\Controller\Index',
                         'action' => 'index',
                     ),
                 ),
             ),
-
             'application' => array(
                 'type' => 'Literal',
                 'options' => array(
@@ -37,7 +36,7 @@ return array(
                             'defaults' => array(
                             ),
                         ),
-                        'child_routes' => array( 
+                        'child_routes' => array(
                             'wildcard' => array(
                                 'type' => 'Wildcard'
                             ),
@@ -81,6 +80,18 @@ return array(
             'Admin\Controller\Usuarios' => 'Admin\Controller\UsuariosController'
         ),
     ),
+    'doctrine' => array(
+        'driver' => array(
+            'application_entities' => array(
+                'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
+                'cache' => 'array',
+                'paths' => array(__DIR__ . '/../src/Admin/Model')
+            ),
+            'orm_default' => array(
+                'drivers' => array(
+                    'Admin\Model' => 'application_entities'
+                )
+            ))),
     'view_manager' => array(
         'display_not_found_reason' => true,
         'display_exceptions' => true,
