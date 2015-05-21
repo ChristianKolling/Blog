@@ -61,12 +61,20 @@ class Usuario
         return $this->email;
     }
 
+    function getSenha() {
+        return $this->senha;
+    }
+
     function getDataNascimento() {
         return $this->data_nascimento;
     }
 
     function getPerfil() {
         return $this->perfil;
+    }
+
+    function setId($id) {
+        $this->id = $id;
     }
 
     function setNome($nome) {
@@ -77,6 +85,10 @@ class Usuario
         $this->email = $email;
     }
 
+    function setSenha($senha) {
+        $this->senha = $senha;
+    }
+
     function setDataNascimento($data_nascimento) {
         $this->data_nascimento = $data_nascimento;
     }
@@ -85,12 +97,5 @@ class Usuario
         $this->perfil = $perfil;
     }
 
-    function getSenha() {
-        return $this->senha;
-    }
-
-    function setSenha($senha) {
-        $this->senha = $senha;
-    }
 
 }

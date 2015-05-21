@@ -25,7 +25,7 @@ class Status
      */
     protected $descricao;
     
-    function getId() {
+    public function getId() {
         return $this->id;
     }
 

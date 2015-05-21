@@ -13,7 +13,7 @@ return array(
                     ),
                 ),
             ),
-            'application' => array(
+            'admin' => array(
                 'type' => 'Literal',
                 'options' => array(
                     'route' => '/admin',
