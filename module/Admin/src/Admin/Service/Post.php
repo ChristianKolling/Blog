@@ -25,16 +25,16 @@ class Post extends Service
         } else {
             $post = new Model();
         }
-        $post->setTitulo($dados['titulo']);
+        $post->setTitulo(mb_strtoupper($dados['titulo'],'UTF-8'));
         $post->setPostCompleto($dados['postagem']);
         $post->setMiniText($dados['postagem']);
         $post->setStatus($this->getObjectManager()->find('Admin\Model\Status',$dados['status']));
-        $post->setDataCadastro(new \DateTime($dados['data_publicacao']));
+        $post->setDataCadastro(new \DateTime('now'));
         $post->setUsuario($this->getObjectManager()->find('Admin\Model\Usuario',1));
         $this->getObjectManager()->persist($post);
         try {
             $this->getObjectManager()->flush();
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             throw new \Exception('Erro ao Salvar, tente novamente mais tarde.');
         }
     }
@@ -51,6 +51,7 @@ class Post extends Service
 
     public function deletePost($id)
     {
+        var_dump($id);exit;
         $post = $this->getObjectManager()->find('Admin\Model\Post', $id);
         $this->getObjectManager()->remove($post);
         try {

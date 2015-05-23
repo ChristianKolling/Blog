@@ -31,8 +31,8 @@
     <!--                        <th>Status</th>-->
                             <th>Data Publicação</th>
     <!--                        <th>Usuário</th>-->
-                            <th>Editar</th>
-                            <th>Deletar</th>
+<!--                            <th>Editar</th>
+                            <th>Deletar</th>-->
                         </tr>
                     </thead>
                     <tbody>
@@ -44,8 +44,8 @@
                                 <td><?php echo $value['data_cadastro']->format('d-m-Y'); ?></td>
         <!--                        <td>2011/04/25</td>
                                 <td>$320,800</td>-->
-                                <td class="col-md-1"><a class="btn btn-primary btn-xs" data-title="Editar" href="/admin/posts/novo/id/<?php echo $value['id']; ?>"><span class="glyphicon glyphicon-pencil"></span></a></td>
-                                <td class="col-md-1"><a class="btn btn-danger btn-xs" data-title="Deletar" href="/admin/posts/delete/id/<?php echo $value['id']; ?>"><span class="glyphicon glyphicon-trash"></span></a></td>
+                                <td class="col-md-1"><a class="btn btn-primary btn-xs" href="/admin/posts/novo/id/<?php echo $value['id']; ?>"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                                <td class="col-md-1"><a class="btn btn-danger btn-xs" href="/admin/posts/apagar/id/<?php echo $value['id']; ?>"><span class="glyphicon glyphicon-trash"></span></a></td>
                             </tr>
                         <?php } ?>
                     </tbody>

@@ -25,12 +25,30 @@ class Comentario
      *
      */
     protected $post;
+
+    /**
+     * @ORM\Column(type="string", length=100)
+     * 
+     */
+    protected $nome;
     
     /**
      * @ORM\Column(type="string", length=100)
      * 
      */
     protected $email;
+    
+    /**
+     * @ORM\Column(type="text", length=3000)
+     * 
+     */
+    protected $comentario;
+    
+    /**
+     * @ORM\Column(type="datetime")
+     * 
+     */
+    protected $data_comentario;
     
     function getId() {
         return $this->id;
@@ -54,6 +72,30 @@ class Comentario
 
     function setEmail($email) {
         $this->email = $email;
+    }
+
+    function getComentario() {
+        return $this->comentario;
+    }
+
+    function setComentario($comentario) {
+        $this->comentario = $comentario;
+    }
+
+    function getNome() {
+        return $this->nome;
+    }
+
+    function setNome($nome) {
+        $this->nome = $nome;
+    }
+
+    function getDataComentario() {
+        return $this->data_comentario;
+    }
+
+    function setDataComentario($data_comentario) {
+        $this->data_comentario = $data_comentario;
     }
 
 

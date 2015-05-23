@@ -1,0 +1,93 @@
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-8">
+            <h1 class="page-header">
+                Blog do Alemão
+                <small>Nunca vi Pior</small>
+            </h1>    
+            <h2 class="text-primary">
+                <?php echo $publicacao->getTItulo(); ?>
+            </h2>
+            <hr>
+            <p><?php echo $publicacao->getMiniText(); ?></p>
+            <hr>
+            <p><span class="glyphicon glyphicon-time"></span><?php echo ' Publicado em ' . $publicacao->getDataCadastro()->format('d-m-Y H:m:s'); ?></p>
+            <hr>
+            <a href="" ><img class="img-responsive" src="http://placehold.it/900x300" alt=""></a>
+            <p style="margin-top: 15px; text-align: justify;">
+                <?php echo $publicacao->getPostCompleto(); ?>
+            </p>
+
+            <div class="row" style="margin-top: 15px;">
+                <div class="col-md-12">
+                    <h2>Deixe seu Comentário</h2>
+                    <?php echo $this->form()->openTag($form); ?>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <?php echo $this->formRow($form->get('nome')); ?>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <?php echo $this->formRow($form->get('email')); ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <?php echo $this->formRow($form->get('comentario')); ?>
+                            </div>
+                        </div>
+                    </div>               
+                    <?php echo $this->formSubmit($form->get('publicar')); ?>
+
+                    <?php echo $this->form()->closeTag($form); ?>
+                </div>
+            </div>
+
+            <?php foreach ($comentarios as $coment): ?>
+                <div class="row" style="margin-top: 2%;">
+                    <div class="col-md-1">
+                        <div class="thumbnail">
+                            <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+                        </div>
+                    </div>
+
+                    <div class="col-md-11">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <strong><?php echo $coment['nome']; ?></strong>
+                                <div class="pull-right">
+                                    <span class="text-muted"><?php echo $coment['data']->format('d-m-Y H:m:s'); ?></span>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <?php echo $coment['comentario']; ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+
+        </div>
+
+        <div class="col-md-4">
+            <div class="well">
+                <h4>Blog Search</h4>
+                <div class="input-group">
+                    <input type="text" class="form-control">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </span>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>

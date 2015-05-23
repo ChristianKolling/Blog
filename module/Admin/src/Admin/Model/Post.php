@@ -32,7 +32,7 @@ class Post
     protected $mini_text;
     
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", length=20000)
      * 
      */
     protected $post_completo;
@@ -108,6 +108,5 @@ class Post
     function setDataCadastro($data_cadastro) {
         $this->data_cadastro = $data_cadastro;
     }
-
 
 }

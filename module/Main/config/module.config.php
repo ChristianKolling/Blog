@@ -16,7 +16,7 @@ return array(
             'main' => array(
                 'type' => 'Literal',
                 'options' => array(
-                    'route' => '/',
+                    'route' => '/main',
                     'defaults' => array(
                         '__NAMESPACE__' => 'Main\Controller',
                         'controller' => 'Index',
@@ -28,7 +28,7 @@ return array(
                     'default' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route' => '/[:controller[/:action]]',
+                            'route' => '[/:controller[/:action]]',
                             'constraints' => array(
                                 'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
@@ -55,21 +55,10 @@ return array(
             'translator' => 'MvcTranslator',
         ),
         'invokables' => array(
-            
+            'Main\Service\Index' => 'Main\Service\Index',
+            'Main\Service\Comentario' => 'Main\Service\Comentario',
         ),
     ),
-    'doctrine' => array(
-        'driver' => array(
-            'application_entities' => array(
-                'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
-                'cache' => 'array',
-                'paths' => array(__DIR__ . '/../src/Admin/Model')
-            ),
-            'orm_default' => array(
-                'drivers' => array(
-                    'Admin\Model' => 'application_entities'
-                )
-            ))),
     'controllers' => array(
         'invokables' => array(
             'Main\Controller\Index' => 'Main\Controller\IndexController',

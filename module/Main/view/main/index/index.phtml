@@ -1,0 +1,46 @@
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-8">
+            <h1 class="page-header">
+                Blog do Alemão
+                <small>Nunca vi Pior</small>
+            </h1>
+            <?php foreach ($posts as $item) { ?>    
+                <h2>
+                    <a href="<?php echo '/main/index/ver/id/' . $item['id']; ?>"><?php echo $item['titulo']; ?></a>
+                </h2>
+                <p><span class="glyphicon glyphicon-time"></span><?php echo ' Publicado em ' . $item['data']->format('d-m-Y H:m:s'); ?></p>
+                <hr>
+    <!--            <a href="" ><img class="img-responsive" src="http://placehold.it/900x300" alt=""></a>-->
+                <hr>
+                <p><?php echo $item['mini']; ?></p>
+                <a class="btn btn-primary" href="<?php echo '/main/index/ver/id/' . $item['id']; ?>">Leia Mais <span class="glyphicon glyphicon-chevron-right"></span></a>
+                <hr>
+            <?php } ?>
+            <!-- Pager -->
+            <ul class="pager">
+                <li class="previous">
+                    <a href="#">&larr; Older</a>
+                </li>
+                <li class="next">
+                    <a href="#">Newer &rarr;</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-md-4">
+            <div class="well">
+                <h4>Blog Search</h4>
+                <div class="input-group">
+                    <input type="text" class="form-control">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>

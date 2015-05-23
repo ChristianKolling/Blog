@@ -56,6 +56,7 @@ class PostsController extends ActionController
     
     public function deleteAction()
     {
+        die('certo');
         $id = (int) $this->params()->fromRoute('id', 0);
         if($id > 0){
             try {
