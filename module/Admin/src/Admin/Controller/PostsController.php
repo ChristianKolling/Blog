@@ -4,12 +4,12 @@ namespace Admin\Controller;
 
 use Core\Controller\ActionController;
 use Zend\View\Model\ViewModel;
+use Zend\Paginator\Paginator;
+use Doctrine\Common\Collections\ArrayCollection;
+use DoctrineModule\Paginator\Adapter\Collection as Adapter;
 use Admin\Form\Post as Form;
 use Admin\Validator\Post as Validacao;
 use Core\Form\Busca as Busca;
-use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator;
-use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
-use Zend\Paginator\Paginator;
 
 class PostsController extends ActionController
 {
@@ -23,8 +23,8 @@ class PostsController extends ActionController
                 $dados = $busca->getData();
             }
         }
-        $result = $this->getService('Admin\Service\Post')->fetchAll();
-        $paginator = new Paginator(new DoctrinePaginator(new ORMPaginator($result)));
+        $collection = new ArrayCollection($this->getService('Admin\Service\Post')->fetchAll($dados));
+        $paginator = new Paginator(new Adapter($collection));
         $paginator->setCurrentPageNumber($this->params()->fromQuery('page', 1))
                   ->setItemCountPerPage(5);
         return new ViewModel(array(

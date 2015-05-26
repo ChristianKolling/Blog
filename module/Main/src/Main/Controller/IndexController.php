@@ -2,6 +2,9 @@
 
 namespace Main\Controller;
 
+use Zend\Paginator\Paginator;
+use Doctrine\Common\Collections\ArrayCollection;
+use DoctrineModule\Paginator\Adapter\Collection as Adapter;
 use Core\Controller\ActionController;
 use Zend\View\Model\ViewModel;
 use Main\Form\Comentario as ComentarioForm;
@@ -20,9 +23,12 @@ class IndexController extends ActionController
                 $dados = $buscaForm->getData();
             }
         }
-        $posts = $this->getService('Main\Service\Index')->getPosts($dados);
+        $collection = new ArrayCollection($this->getService('Main\Service\Index')->getPosts($dados));
+        $paginator = new Paginator(new Adapter($collection));
+        $paginator->setCurrentPageNumber($this->params()->fromQuery('page', 1))
+                ->setItemCountPerPage(5);
         return new ViewModel(array(
-            'posts' => $posts,
+            'posts' => $paginator,
             'busca' => $buscaForm,
         ));
     }

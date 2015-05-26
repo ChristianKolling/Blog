@@ -7,11 +7,16 @@ use Admin\Model\Post as Model;
 
 class Post extends Service
 {
-    public function fetchAll()
+    public function fetchAll($search = null)
     {
-        $query = $this->getObjectManager()->getRepository('Admin\Model\Post')
-                ->createQueryBuilder('Post');
-        return $query;
+        $query = $this->getObjectManager()->createQueryBuilder()
+                ->select('Post.id, Post.titulo, Post.mini_text, Post.post_completo, Status.descricao, Post.data_cadastro, Usuario.nome')
+                ->from('Admin\Model\Post','Post')
+                ->join('Post.status','Status')
+                ->join('Post.usuario','Usuario')
+                ->where('Post.titulo LIKE ?1 OR Post.mini_text LIKE ?1 OR Post.post_completo LIKE ?1')
+                ->setParameter(1,"%".$search['search']."%");
+        return $query->getQuery()->getResult();
     }
 
     public function savePost($dados)

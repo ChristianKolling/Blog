@@ -35,13 +35,13 @@
                     <tbody>
                         <?php foreach ($paginator as $value) { ?>
                             <tr>
-                                <td><?php echo $value->getTitulo(); ?></td>
-                                <td><?php echo $value->getMiniText(); ?></td>
-                                <td><?php echo $value->getPostCompleto(); ?></td>
-                                <td><?php echo $value->getStatus()->getDescricao(); ?></td>
-                                <td><?php echo $value->getDataCadastro()->format('d-m-Y H:m:s'); ?></td>
-                                <td class="col-md-1"><a class="btn btn-primary btn-xs" href="/admin/posts/novo/id/<?php echo $value->getId(); ?>"><span class="glyphicon glyphicon-pencil"></span></a></td>
-                                <td class="col-md-1"><a class="btn btn-danger btn-xs" href="/admin/posts/delete/id/<?php echo $value->getId(); ?>"><span class="glyphicon glyphicon-trash"></span></a></td>
+                                <td><?php echo $value['titulo']; ?></td>
+                                <td><?php echo $value['mini_text']; ?></td>
+                                <td><?php echo $value['post_completo']; ?></td>
+                                <td><?php echo $value['descricao']; ?></td>
+                                <td><?php echo $value['data_cadastro']->format('d-m-Y H:m:s'); ?></td>
+                                <td class="col-md-1"><a class="btn btn-primary btn-xs" href="/admin/posts/novo/id/<?php echo $value['id']; ?>"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                                <td class="col-md-1"><a class="btn btn-danger btn-xs" href="/admin/posts/delete/id/<?php echo $value['id']; ?>"><span class="glyphicon glyphicon-trash"></span></a></td>
                             </tr>
                         <?php } ?>
                     </tbody>
@@ -51,5 +51,4 @@
     </div>
 </div>
 <?php
-    echo $this->paginationControl($paginator, 'Sliding', 'partials/paginator.phtml');
-?>
+echo $this->paginationControl($paginator, 'Sliding', 'partials/paginator.phtml');

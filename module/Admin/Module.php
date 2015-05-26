@@ -1,13 +1,4 @@
 <?php
-
-/**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/ZendSkeletonApplication for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- */
-
 namespace Admin;
 
 use Zend\Mvc\ModuleRouteListener;
@@ -64,8 +55,6 @@ class Module
         if (!$authService->authorize($moduleName, $controllerName, $actionName)) {
             throw new \Exception('Você não tem permissão para acessar esse recurso!');
         }
-
-
         return true;
     }
 
