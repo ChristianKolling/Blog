@@ -48,14 +48,13 @@
                 </div>
             </div>
 
-            <?php foreach ($comentarios as $coment): ?>
+            <?php foreach ($comentarios as $coment){ $i++;?>
                 <div class="row" style="margin-top: 2%;">
                     <div class="col-md-1">
                         <div class="thumbnail">
                             <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
                         </div>
                     </div>
-
                     <div class="col-md-11">
                         <div class="panel panel-default">
                             <div class="panel-heading">
@@ -70,23 +69,10 @@
                         </div>
                     </div>
                 </div>
-            <?php endforeach; ?>
-
-        </div>
-
-        <div class="col-md-4">
-            <div class="well">
-                <h4>Blog Search</h4>
-                <div class="input-group">
-                    <input type="text" class="form-control">
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" type="button">
-                            <span class="glyphicon glyphicon-search"></span>
-                        </button>
-                    </span>
-                </div>
+            <?php } ?>
+            <div class="col-md-5 row">
+                <?php echo 'Um total de '.$i.' comentários foram realizados';?>
             </div>
-
         </div>
 
     </div>

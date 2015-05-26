@@ -18,8 +18,16 @@ class IndexController extends ActionController
             $form->setData($this->getRequest()->getPost());
             if ($form->isValid()){
                 $dados = $form->getData();
+                try {
+                    $this->getService('Admin\Service\Index')->authenticate($dados);
+                    return $this->redirect()->toUrl('/admin/home');
+                } catch (\Exception $ex) {
+                    $this->flashMessenger()->addErrorMessage($ex->getMessage());
+                }
+                return $this->redirect()->toUrl('/admin');
             }
         }
+        
         return new ViewModel(array(
             'form' => $form
         ));

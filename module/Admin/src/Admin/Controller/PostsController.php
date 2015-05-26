@@ -7,6 +7,9 @@ use Zend\View\Model\ViewModel;
 use Admin\Form\Post as Form;
 use Admin\Validator\Post as Validacao;
 use Core\Form\Busca as Busca;
+use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator;
+use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
+use Zend\Paginator\Paginator;
 
 class PostsController extends ActionController
 {
@@ -20,16 +23,19 @@ class PostsController extends ActionController
                 $dados = $busca->getData();
             }
         }
-        $result = $this->getService('Admin\Service\Post')->fetchAll($dados);
+        $result = $this->getService('Admin\Service\Post')->fetchAll();
+        $paginator = new Paginator(new DoctrinePaginator(new ORMPaginator($result)));
+        $paginator->setCurrentPageNumber($this->params()->fromQuery('page', 1))
+                  ->setItemCountPerPage(5);
         return new ViewModel(array(
-            'dados' => $result,
             'busca' => $busca,
+            'paginator' => $paginator
         ));
     }
 
     public function novoAction()
     {
-        $form = new Form();
+        $form = new Form($this->getObjectManager());
         $validacao = new Validacao();
         if ($this->getRequest()->isPost()){
             $form->setInputFilter($validacao->getInputFilter());
@@ -40,6 +46,7 @@ class PostsController extends ActionController
                     $this->getService('Admin\Service\Post')->savePost($dados);
                     $this->flashMessenger()->addSuccessMessage('Postagem publicada com sucesso.');
                 } catch (\Exception $ex) {
+                    var_dump($ex->getMessage());exit;
                     $this->flashMessenger()->addErrorMessage('Erro ao salvar publicação. Codigo do Erro: '.$ex->getCode());
                 }
                 $this->redirect()->toUrl('/admin/posts');
@@ -56,7 +63,6 @@ class PostsController extends ActionController
     
     public function deleteAction()
     {
-        die('certo');
         $id = (int) $this->params()->fromRoute('id', 0);
         if($id > 0){
             try {

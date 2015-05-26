@@ -45,7 +45,7 @@ class Post
     protected $usuario;
 
     /**
-     * @ORM\OneToOne(targetEntity="Status")
+     * @ORM\ManyToOne(targetEntity="Status")
      * @ORM\JoinColumn(name="status", referencedColumnName="id")
      *
      */

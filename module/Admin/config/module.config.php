@@ -58,7 +58,14 @@ return array(
             'Admin\Service\Post' => 'Admin\Service\Post',
             'Admin\Service\Status' => 'Admin\Service\Status',
             'Admin\Service\Usuario' => 'Admin\Service\Usuario',
+            'Admin\Service\Index' => 'Admin\Service\Index',
+            'Admin\Service\Comentario' => 'Admin\Service\Comentario',
         ),
+        'factories' => array(
+            'Session' => function ($sm) {
+                return new Zend\Session\Container('SessionAdmin');
+            },
+        )
     ),
     'doctrine' => array(
         'driver' => array(
@@ -77,7 +84,9 @@ return array(
             'Admin\Controller\Index' => 'Admin\Controller\IndexController',
             'Admin\Controller\Posts' => 'Admin\Controller\PostsController',
             'Admin\Controller\Status' => 'Admin\Controller\StatusController',
-            'Admin\Controller\Usuarios' => 'Admin\Controller\UsuariosController'
+            'Admin\Controller\Usuarios' => 'Admin\Controller\UsuariosController',
+            'Admin\Controller\Home' => 'Admin\Controller\HomeController',
+            'Admin\Controller\Comentarios' => 'Admin\Controller\ComentariosController'
         ),
     ),
     'doctrine' => array(

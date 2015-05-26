@@ -6,14 +6,24 @@ use Core\Controller\ActionController;
 use Zend\View\Model\ViewModel;
 use Main\Form\Comentario as ComentarioForm;
 use Main\Validator\Comentario as Validacao;
+use Core\Form\Busca as BuscaForm;
 
 class IndexController extends ActionController 
 {
     public function indexAction()
     {
-        $posts = $this->getService('Main\Service\Index')->getPosts();
+        $buscaForm = new BuscaForm();
+        if ($this->getRequest()->isPost()) {
+            $search = $this->getRequest()->getPost();
+            $buscaForm->setData($search);
+            if ($buscaForm->isValid()) {
+                $dados = $buscaForm->getData();
+            }
+        }
+        $posts = $this->getService('Main\Service\Index')->getPosts($dados);
         return new ViewModel(array(
             'posts' => $posts,
+            'busca' => $buscaForm,
         ));
     }
     
@@ -26,7 +36,6 @@ class IndexController extends ActionController
             'id' => $id
         ));
         $comentarios = $this->getService('Main\Service\Comentario')->getComentarios($id);
-        
         if ($this->getRequest()->isPost()){
             $form->setInputFilter($validacao->getInputFilter());
             $form->setData($this->getRequest()->getPost());
@@ -42,7 +51,7 @@ class IndexController extends ActionController
             }
         }
         return new ViewModel(array(
-            'form' => $form,
+            'form' => $form,    
             'publicacao' => $postagem,
             'comentarios' => $comentarios,
         ));

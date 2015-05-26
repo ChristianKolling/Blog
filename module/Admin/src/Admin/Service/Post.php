@@ -7,15 +7,11 @@ use Admin\Model\Post as Model;
 
 class Post extends Service
 {
-    public function fetchAll($search = null)
+    public function fetchAll()
     {
-        $query = $this->getObjectManager()->createQueryBuilder()
-                ->select('Post.id, Post.titulo, Post.mini_text, Post.post_completo, Post.data_cadastro')
-                ->from('Admin\Model\Post','Post')
-                ->orderBy('Post.data_cadastro', 'ASC')
-                ->where('Post.titulo LIKE ?1 OR Post.post_completo LIKE ?1')
-                ->setParameters(array(1 => "%" . $search['search'] . "%"));
-        return $query->getQuery()->getResult();
+        $query = $this->getObjectManager()->getRepository('Admin\Model\Post')
+                ->createQueryBuilder('Post');
+        return $query;
     }
 
     public function savePost($dados)
@@ -27,7 +23,7 @@ class Post extends Service
         }
         $post->setTitulo(mb_strtoupper($dados['titulo'],'UTF-8'));
         $post->setPostCompleto($dados['postagem']);
-        $post->setMiniText($dados['postagem']);
+        $post->setMiniText($dados['resumo']);
         $post->setStatus($this->getObjectManager()->find('Admin\Model\Status',$dados['status']));
         $post->setDataCadastro(new \DateTime('now'));
         $post->setUsuario($this->getObjectManager()->find('Admin\Model\Usuario',1));
@@ -35,6 +31,7 @@ class Post extends Service
         try {
             $this->getObjectManager()->flush();
         } catch (\Exception $ex) {
+            var_dump($ex->getMessage());exit;
             throw new \Exception('Erro ao Salvar, tente novamente mais tarde.');
         }
     }
@@ -44,6 +41,7 @@ class Post extends Service
         $form->get('id')->setValue($post->getId());
         $form->get('titulo')->setValue($post->getTitulo());
         $form->get('postagem')->setValue($post->getPostCompleto());
+        $form->get('resumo')->setValue($post->getMiniText());
         $form->get('status')->setValue($post->getStatus());
         $form->get('data_publicacao')->setValue($post->getDataCadastro()->format('d-m-Y'));
         return $form;
@@ -51,7 +49,6 @@ class Post extends Service
 
     public function deletePost($id)
     {
-        var_dump($id);exit;
         $post = $this->getObjectManager()->find('Admin\Model\Post', $id);
         $this->getObjectManager()->remove($post);
         try {

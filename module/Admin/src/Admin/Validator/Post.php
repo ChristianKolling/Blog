@@ -7,8 +7,9 @@ use Zend\InputFilter\InputFilter;
 
 class Post
 {
+
     protected $inputFilter;
-    
+
     public function getInputFilter() 
     {
         if (!$this->inputFilter) {
@@ -43,6 +44,21 @@ class Post
             )));
 
             $inputFilter->add($inputFactory->createInput(array(
+                        'name' => 'resumo',
+                        'required' => true,
+                        'filters' => array(
+                            array('name' => 'StripTags'),
+                            array('name' => 'StringTrim'),
+                        ),
+                        'validators' => array(
+                            array(
+                                'name' => 'NotEmpty',
+                                'options' => array('message' => 'Sobre o que será está publicação?')
+                            ),
+                        ),
+            )));
+
+            $inputFilter->add($inputFactory->createInput(array(
                         'name' => 'postagem',
                         'required' => true,
                         'filters' => array(
@@ -61,4 +77,5 @@ class Post
         }
         return $this->inputFilter;
     }
+
 }

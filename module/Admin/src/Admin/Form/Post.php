@@ -7,7 +7,7 @@ use Zend\Form\Form as Form;
 class Post extends Form 
 {
 
-    public function __construct() 
+    public function __construct($objectManager) 
     {
         parent::__construct('novo');
         $this->setAttribute('method', 'post');
@@ -30,6 +30,19 @@ class Post extends Form
                 'placeholder' => 'Título da Publicação',
             ),
         ));
+        
+        $this->add(array(
+            'name' => 'resumo',
+            'type' => 'Text',
+            'options' => array(
+                'label' => 'Resumo da Publicação',
+            ),
+            'attributes' => array(
+                'id' => 'resumo',
+                'class' => 'form-control input-lg',
+                'placeholder' => 'Um pequeno resumo sobre a publicação',
+            ),
+        ));
 
         $this->add(array(
             'name' => 'postagem',
@@ -45,22 +58,33 @@ class Post extends Form
             ),
         ));
         
-        $this->add(array(
-            'type' => 'Select',
-            'name' => 'status',
-            'options' => array(
-                'label' => 'Status ',
-                'value_options' => array(
-                    '1' => 'Ativado',
-                    '2' => 'Desativado',
-                ),
-            ),
-            'attributes' => array(
-                'id' => 'status',
-                'class' => 'form-control input-lg',
-            ),
-        ));
-        
+        $this->add(
+                array(
+                    'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+                    'name' => 'status',
+                    'options' => array(
+                        'disable_inarray_validator' => true,
+                        'empty_opttion' => 'Selecione um Status',
+                        'label' => 'Status',
+                        'object_manager' => $objectManager,
+                        'target_class' => 'Admin\Model\Status',
+                        'property' => 'descricao',
+                        'is_method' => true,
+                        'find_method' => array(
+                            'name' => 'findBy',
+                            'params' => array(
+                                'criteria' => array(),
+                                'orderBy' => array('descricao' => 'ASC'),
+                            ),
+                        ),
+                    ),
+                    'attributes' => array(
+                        'id' => 'status',
+                        'class' => 'form-control input-lg',
+                    ),
+                )
+        );
+
         $this->add(array(
             'name' => 'data_publicacao',
             'type' => 'Text',
