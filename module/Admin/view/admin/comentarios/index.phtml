@@ -3,6 +3,22 @@
         <h2 class="text-center">Comentários do Blog</h2>
     </div>
     <div class="row">
+        <div class="col-md-6 pull-right row">
+            <div id="custom-search-input">
+                <?php echo $this->form()->openTag($busca); ?>
+                <div class="input-group col-md-12">
+                    <?php echo $this->formRow($busca->get('search')); ?>  
+                    <span class="input-group-btn">
+                        <div style="height: 34px; margin-top:1px;">
+                            <button class="btn btn-info btn-sm" type="submit" style="height: 34px; margin-top:-1px;">
+                                <i class="glyphicon glyphicon-search"></i>
+                            </button>
+                        </div>
+                    </span>
+                </div>
+                <?php echo $this->form()->closeTag($busca); ?>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-12" style="margin-top: 5px;">
                 <table id="datatable" class="table table-striped table-bordered" cellspacing="0" width="100%">
@@ -33,64 +49,5 @@
         </div>
     </div>
 </div>
-
-<div class="container row">
-    <ul class="pagination">
-        <li class="disabled"><a href="#">«</a></li>
-        <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><a href="#">5</a></li>
-        <li><a href="#">»</a></li>
-    </ul>
-</div>
-
-<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title custom_align" id="Heading">Edit Your Detail</h4>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <input class="form-control " type="text" placeholder="Tiger Nixon">
-                </div>
-                <div class="form-group">
-
-                    <input class="form-control " type="text" placeholder="System Architect">
-                </div>
-                <div class="form-group">
-
-
-                    <input class="form-control " type="text" placeholder="Edinburgh">
-
-                </div>
-            </div>
-            <div class="modal-footer ">
-                <button type="button" class="btn btn-warning btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Update</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-<!--<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title custom_align" id="Heading">Apagar Registro</h4>
-            </div>
-            <div class="modal-body">
-                <div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign"></span> Deseja realmente apagar este registro?</div>
-            </div>
-            <div class="modal-footer ">
-                <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-ok-sign"></span> Sim</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Não</button>
-            </div>
-        </div>
-    </div>
-</div>-->
+<?php
+echo $this->paginationControl($comentarios, 'Sliding', 'partials/paginator.phtml');

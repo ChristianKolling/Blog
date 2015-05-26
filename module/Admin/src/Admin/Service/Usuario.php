@@ -7,11 +7,13 @@ use Admin\Model\Usuario as Model;
 
 class Usuario extends Service
 {
-    public function fetchAll()
+    public function fetchAll($search = null)
     {
         $query = $this->getObjectManager()->createQueryBuilder()
                 ->select('Usuario.id, Usuario.nome, Usuario.email, Usuario.data_nascimento as nascimento, Usuario.perfil')
-                ->from('Admin\Model\Usuario','Usuario');
+                ->from('Admin\Model\Usuario','Usuario')
+                ->where('Usuario.nome LIKE ?1 OR Usuario.email LIKE ?1')
+                ->setParameter(1,"%".$search['search']."%");
         return $query->getQuery()->getResult();
     }
     

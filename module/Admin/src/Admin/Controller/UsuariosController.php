@@ -7,17 +7,29 @@ use Zend\View\Model\ViewModel;
 use Core\Form\Busca as Busca;
 use Admin\Form\Usuario as Form;
 use Admin\Validator\Usuario as Validacao;
+use Zend\Paginator\Paginator;
+use Doctrine\Common\Collections\ArrayCollection;
+use DoctrineModule\Paginator\Adapter\Collection as Adapter;
 
 class UsuariosController extends ActionController
 {
     public function indexAction()
     {
         $busca = new Busca();
-        
-        $result = $this->getService('Admin\Service\Usuario')->fetchAll();   
+        if ($this->getRequest()->isPost()) {
+            $search = $this->getRequest()->getPost();
+            $busca->setData($search);
+            if ($busca->isValid()) {
+                $dados = $busca->getData();
+            }
+        }
+        $collection = new ArrayCollection($this->getService('Admin\Service\Usuario')->fetchAll($dados));
+        $paginator = new Paginator(new Adapter($collection));
+        $paginator->setCurrentPageNumber($this->params()->fromQuery('page', 1))
+                  ->setItemCountPerPage(5);
         return new ViewModel(array(
-            'dados' => $result,
-            'busca' => $busca
+            'busca' => $busca,
+            'dados' => $paginator
         ));
     }
     
